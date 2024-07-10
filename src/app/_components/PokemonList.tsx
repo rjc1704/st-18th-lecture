@@ -1,5 +1,6 @@
 "use client";
 
+import { getPokemons } from "@/api/getPokemons";
 import { Pokemon } from "@/types/pokemon.type";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
@@ -12,8 +13,9 @@ export default function PokemonList() {
     error,
   } = useQuery<Pokemon[], Error, Pokemon[], [string]>({
     queryKey: ["pokemons"],
-    queryFn: () => fetch("/api/pokemons").then((res) => res.json()),
+    queryFn: getPokemons,
   });
+  console.log("isPending:", isPending);
 
   if (isPending) return <p className="text-2xl">isPending...</p>;
 
